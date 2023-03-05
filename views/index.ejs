@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<style>
+    #card {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    #grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    #buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    button {
+        margin: 5px;
+        padding: 5px;
+
+    }
+
+    #buttons input {
+        display: none;
+    }
+    #Addform{
+        display:flex;
+        flex-direction:column;
+        border:2px solid black;
+        border-radius:5px;
+        width: 50%;
+        margin:10px auto;
+        padding:10px;
+    }
+    #Addform input{
+        margin:10px;
+        padding:5px;
+    }
+</style>
+<script>
+    const handleDelete = (id) => {
+        console.log(id);
+    }
+</script>
+
+<body>
+    <div id="__app">
+        <form id="Addform" method="post" action="/AddFruits">
+            <input placeholder="Name" type="text" name="name">
+            <input placeholder="Rating" type="number" name="rating">
+            <input placeholder="Review" type="text" name="review">
+            <button type="submit">Add Fruits</button>
+        </form>
+        <div id="grid">
+            <% for(var i=0;i<AllFruits.length;i++){ %>
+                <div id="card">
+                    <div>Name:<%= AllFruits[i].name %>
+                    </div>
+                    <div>Rating:<%= AllFruits[i].rating %>
+                    </div>
+                    <div>Review:<%= AllFruits[i].review %>
+                    </div>
+                    <div id="buttons">
+                        <form method="post" action="/DeleteFruits">
+                            <input type="text" name="DeleteId" value="<%= AllFruits[i].id %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form method="post" action="/UpdateFruits">
+                            <input type="text" value="<%= AllFruits[i].id %>" >
+                            <button type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+
+                <% } %>
+        </div>
+    </div>
+</body>
+
+</html>
